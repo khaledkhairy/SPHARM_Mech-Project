@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/SimGast">
+        <file>Resources/winicon.PNG</file>
+    </qresource>
+</RCC>
