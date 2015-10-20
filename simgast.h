@@ -22,9 +22,9 @@ class vtkAxesActor;
 class vtkCubeAxesActor;
 class vtkCamera;
 class vtkScalarBarActor;
-//class vtkContextView;
-//class vtkChart;
-//class vtkPlot;
+class vtkContextView;
+class vtkChart;
+class vtkPlot;
 
 class SimGast : public QMainWindow
 {
@@ -60,9 +60,10 @@ public:
 	vtkCellArray *vis_polys;
 	vtkPolyData* vis_polydata, *vm_polydata;
 	vtkScalarBarActor *scalarBar;
-	//vtkContextView* XYview;
-	//vtkChart* chart;
-	//vtkPlot* curve;
+	
+    vtkContextView* XYview;
+	vtkChart* chart;
+	vtkPlot* curve;
 
 	// general member variables
 	double _bgrdr, _bgrdg, _bgrdb;

@@ -28,12 +28,12 @@
 #include "vtkRenderWindow.h"
 #include "vtkRenderWindowInteractor.h"
 #include "vtkSmartPointer.h"
-//#include "vtkContextView.h"
+#include "vtkContextView.h"
 #include "vtkViewsContext2DModule.h"
 #include "vtkContextScene.h"
 #include "vtkChartXY.h"
 #include "vtkPlot.h"
-#include <vtkPlotLine.h>
+#include "vtkPlotLine.h"
 #include "vtkTable.h"
 #include "vtkTimerLog.h"
 #include "vtkQtTableView.h"
@@ -88,7 +88,8 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	std::ostringstream os;
 	os<<"Spherical harmonics tissue mechanics modeling of morphogenesis (high resolution version)"<<std::endl<<"Created by Khaled Khairy and Philipp Keller."<<std::endl;
 	os<<"Copyright 2013 Howard Hughes Medical Institute"<<std::endl<<"-------------------------------------------------------------"<<std::endl<<std::endl;
-	
+	report(os.str());os.str("");
+    
 	this->version = 2000;
 	this->Lmax = 36;	//36
 	this->max_gL_max = 70; //70
@@ -103,8 +104,11 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	//omp_set_num_threads(2);
 	Eigen::setNbThreads(2);
 
-	progress.setValue(10);
-	progress.setLabelText("Initializing the shell object: 1 of 3 (please wait)....                     ");QApplication::processEvents();
+	//progress.setValue(10);
+	//progress.setLabelText("Initializing the shell object: 1 of 3 (please wait)....                     ");QApplication::processEvents();
+    
+    os<<"Initializing the shell object: 1 of 3 (please wait)...."<<std::endl;report(os.str());os.str("");
+    
 	/// initialize the shell object
 	this->s = new shp_shell(Lmax,gdim,calc_tri_n, max_gL_max);
 	//s = new shp_shell(6,30,6);
@@ -218,10 +222,10 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	_ren1->SetBackground(_bgrdr,_bgrdg,_bgrdb);
 	_ren2->SetBackground(1.0, 1.0, 1.0);
 	//////////////////// Set up the XY plot
-	//XYview = vtkContextView::New();
-	//XYview->GetRenderer()->SetBackground(1.0, 1.0, 1.0);
-	//XYview->SetInteractor(ui.vtkWidget2->GetInteractor());
-	//ui.vtkWidget2->SetRenderWindow(XYview->GetRenderWindow());
+	XYview = vtkContextView::New();
+	XYview->GetRenderer()->SetBackground(1.0, 1.0, 1.0);
+	XYview->SetInteractor(ui.vtkWidget2->GetInteractor());
+	ui.vtkWidget2->SetRenderWindow(XYview->GetRenderWindow());
 	//////////////////////////////////
 
 	vtkTextProperty* tprop = vtkTextProperty::New();
@@ -238,7 +242,8 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	//_ren1->AddActor(scalarBar);
 
 	progress.setValue(99);
-	progress.setLabelText("Inializing fast processing capability....                                    ");QApplication::processEvents();
+	progress.setLabelText("Inializing fast processing capability....                                    ");
+    QApplication::processEvents();
 	//// prepare vtk for fast plotting during optimization by predefining the polygon structure stored in this->smv
 	vis_polys = vtkCellArray::New();
 	for (int i=0; i<this->smv->n_faces; i++)
@@ -255,7 +260,8 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	vm_polydata->SetPolys(vis_polys);//polys->Delete();
 	/////
 	progress.setValue(100);
-	progress.setLabelText("Launching application!                                                       ");QApplication::processEvents();
+	progress.setLabelText("Launching application!                                                       ");
+    QApplication::processEvents();
 	this->update_vtk();
 	/////
 	//os<<*s;
@@ -410,14 +416,15 @@ void SimGast::import_shape_from_disc(std::string filestr)
 		//os<<"Generating scalar field basis ... ";report(os.str());os.str("");
 		//this->set_gLmax(this->max_gL_max);
 	progress.setValue(20);
-	progress.setLabelText("Configuring gene expression pattern .....                               ");QApplication::processEvents();
+	progress.setLabelText("Configuring gene expression pattern .....                               ");//QApplication::processEvents();
 		os<<"\nConfiguring gene expression pattern ..... ";report(os.str());os.str("");
 		this->s->srf_g->read_trunc(this->filestr.c_str());	// read the surface with gene expression data up to gL_max
 		this->s->srf_g->center_to_zero();
 		s->srf_g->update();
 
 	progress.setValue(40);
-	progress.setLabelText("Configuring undeformed geometry .....                                   ");QApplication::processEvents();
+	progress.setLabelText("Configuring undeformed geometry .....                                   ");
+    //QApplication::processEvents();
 		//this->max_gL_max = s->srf_g->b->L_max;
 		os<<"\nConfiguring undeformed geometry ..... ";report(os.str());os.str("");
 		this->s->srf_u->read_trunc(this->filestr.c_str());	// read the surface with gene expression data up to gL_max
@@ -425,7 +432,8 @@ void SimGast::import_shape_from_disc(std::string filestr)
 		s->srf_u->needsUpdating = YES;
 		s->srf_u->update();
 	progress.setValue(60);
-	progress.setLabelText("Configuring working geometry .....                                      ");QApplication::processEvents();
+	progress.setLabelText("Configuring working geometry .....                                      ");
+    //QApplication::processEvents();
 		os<<"\nConfiguring working geometry ..... ";report(os.str());os.str("");
 		this->s->srf_m->read_trunc(this->filestr.c_str());		// read_trunc causes truncation of series or filling with zeros to keep L_max the same
 
@@ -433,7 +441,8 @@ void SimGast::import_shape_from_disc(std::string filestr)
 		s->srf_m->needsUpdating = YES;
 		s->srf_m->update();
 	progress.setValue(80);
-	progress.setLabelText("Configuring shell material .....                                        ");QApplication::processEvents();
+	progress.setLabelText("Configuring shell material .....                                        ");
+    //QApplication::processEvents();
 		os<<"\nConfiguring shell object ..... ";report(os.str());os.str("");
 		this->s->set_undeformed_shape();		// use srf_m as the undeformed shape srf_u
 		s->fix_normals_sign_known =0;
@@ -447,7 +456,8 @@ void SimGast::import_shape_from_disc(std::string filestr)
 		this->s->sfindx[4] = -1;
 		this->s->sfindx[5] = -1;
 	progress.setValue(90);
-	progress.setLabelText("Configuring display parameters .....                                    ");QApplication::processEvents();
+	progress.setLabelText("Configuring display parameters .....                                    ");
+    //QApplication::processEvents();
 		os<<"\nConfiguring display parameters ..... ";report(os.str());os.str("");
 		generate_vm_actor();
 		cscale = 1.0/cscale_calc(this->s->srf_m);
@@ -1465,14 +1475,6 @@ void SimGast::on_pushButton_active_region_view_clicked()
 	//}
 }
 
-
-// general settings
-void SimGast::on_lineEdit_opt_plot_frequency_editingFinished()
-{
-	const QString text  = this->ui.lineEdit_opt_plot_frequency->text();
-	this->opt_plot_step = text.toInt();
-}
-
 void SimGast::on_pushButton_constraint_surface_clicked()
 {
 	
@@ -1488,6 +1490,14 @@ void SimGast::on_pushButton_constraint_surface_clicked()
 	}
 	this->update_vtk();
 }
+// general settings
+void SimGast::on_lineEdit_opt_plot_frequency_editingFinished()
+{
+	const QString text  = this->ui.lineEdit_opt_plot_frequency->text();
+	this->opt_plot_step = text.toInt();
+}
+
+
 
 
 
@@ -2081,8 +2091,8 @@ void SimGast::on_pushButton_start_clicked()
 void SimGast::on_pushButton_start_PSO_clicked()
 {
 	stop_optimization=false;
-	if(this->ui.comboBox_sf1->currentIndex()>0 & this->ui.comboBox_sf2->currentIndex()>0 & this->ui.comboBox_sf3->currentIndex()>0)
-	{
+	//if(this->ui.comboBox_sf1->currentIndex()>0 & this->ui.comboBox_sf2->currentIndex()>0 & this->ui.comboBox_sf3->currentIndex()>0)
+	//{
 		// prepare the shell morphology for the limited Lmax specified for fitting
 		const QString text1  = this->ui.lineEdit_PSO_Lmax_fit->text();
 		maxLfit = text1.toInt();
@@ -2116,11 +2126,11 @@ void SimGast::on_pushButton_start_PSO_clicked()
 		this->pso_start();
 		if(stop_optimization){os<<"Optimization stopped at user's request";report(os.str());os.str("");}
 		this->s->srf_m->set_new_spherical_mesh(old_tri_n);		// reset the spherical mesh to what it was before
-	}
-	else
-	{
-		this->message("Please select three scalar fields.");
-	}
+	//}
+	//else
+	//{
+	//	this->message("Please select three scalar fields.");
+	//}
 
 }
 void SimGast::generate_vm_actor_hi_res()
@@ -2472,7 +2482,7 @@ int SimGast::vtk_intersection_tests()
 
 void SimGast::generate_XYplot(std::vector<double> y)
 {
-    /*
+    
 	if(y.size()>1)
 	{
 	int numPoints = y.size();
@@ -2509,7 +2519,7 @@ void SimGast::generate_XYplot(std::vector<double> y)
 		chart->Delete();
 
 	}
-     */
+     /**/
 }
 
 //////////////////////// FITTING --- MMC////////////////////
@@ -2835,7 +2845,7 @@ void SimGast::pso_start()
 	this->update_vis_optim_hi_res();		// let's look at it before the iterations start
 
 	
-	////////////////////////////// START THE ITERATIONS //////////////////////////////////
+	////////////////////////////// START ITERATIONS //////////////////////////////////
 	while(iter<niter & stop_optimization==0 )
 	{
 		os<<"Iteration\t"<<iter+1<<"\n";report(os.str());os.str("");
@@ -2925,7 +2935,7 @@ double SimGast::myfunc(unsigned n, const double *x, double *grad, void *my_func_
 		app->s->srf_m->zc(i,0) = app->X_o[i+2*nc] * app->tnlk[i];
 	}
 	app->s->srf_m->update_fast();
-	double E = app->s->shell_energy();
+	double E = app->s->shell_energy();// calculate the energy
 	//double E = 0.0;
 	app->Energy_vec.push_back(E);
 	// visualize
@@ -2936,7 +2946,7 @@ double SimGast::myfunc(unsigned n, const double *x, double *grad, void *my_func_
 		app->generate_XYplot(app->Energy_vec);
 	}
 	app->func_counter++;
-	// calculate the energy
+	
 	return E;
 
 }
@@ -2979,7 +2989,7 @@ double SimGast::myfunc_unconstrained(unsigned n, const double *x, double *grad, 
 	// visualize / report
 	std::ostringstream os;
 	//os<<"Vol. constraint: "<<std::abs((1-(app->s->srf_m->V/app->s->srf_u->V)))<<"\tIntersection : "<<intersection<<"\tT: "<<app->s->srf_m->T<<std::endl;app->report(os.str());os.str("");
-	os<<"Vol. constraint: "<<Ev<<"\tIntersection : "<<intersection<<"\tT: "<<app->s->srf_m->T<<std::endl;app->report(os.str());os.str("");
+	os<<"E:"<<E<<" -- Ev: "<<Ev<<"\tIntersec.: "<<intersection<<"\tT: "<<app->s->srf_m->T<<std::endl;app->report(os.str());os.str("");
 	if(app->func_counter % app->opt_plot_step ==0)
 	{
 		if(app->show_hi_res){app->update_vis_optim_hi_res();}
@@ -3305,7 +3315,7 @@ void SimGast::SBPLX_start()
 	onlk = tmp1;
 	tnlk = tmp2;
 	
-	// generate the fitting parameter index matrices
+	// generate fitting parameter index matrices
 	this->set_L_max(maxLfit);
 	//if(this->ui.checkBox_symmetry->isChecked()){this->enforce_symmetry();};
 	X_o.resize(0);
