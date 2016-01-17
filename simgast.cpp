@@ -94,8 +94,8 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	this->Lmax = 36;	//36
 	this->max_gL_max = 70; //70
 	this->gdim = 60;		//60
-	this->gdim_fit_min = 60;//60
-	int calc_tri_n = 2;
+	this->gdim_fit_min = 30;//60
+	int calc_tri_n = 3; //3
 	int vis_tri_n = 5;	//5
 	tri_n_intersection_test = 1;
 	
@@ -142,7 +142,7 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	s->sf3_2_vis.resize(gsmv->n_points);
 
 	progress.setValue(90);
-	progress.setLabelText("Initializing the optimization components....                                 ");QApplication::processEvents();
+	//progress.setLabelText("Initializing the optimization components....                                 ");QApplication::processEvents();
 	//initialize optimization
 	int nc = this->s->srf_m->xc.rows();
 	ixc.resize(nc);std::fill(ixc.begin(), ixc.end(), true);
@@ -170,7 +170,7 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	vm_actor_on = false;
 
 	progress.setValue(95);
-	progress.setLabelText("Configuring visualization environment....                                    ");QApplication::processEvents();
+	//progress.setLabelText("Configuring visualization environment....                                    ");QApplication::processEvents();
 	// setting up the look up table
 	vtkLookupTable *lut= vtkLookupTable::New();
 		lut->SetNumberOfTableValues(256);
