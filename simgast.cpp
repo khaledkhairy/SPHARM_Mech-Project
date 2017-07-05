@@ -20,7 +20,14 @@
 #include <QMessageBox>
 
 // includes for vtk
-//#include "vtkHybridInstantiator.h"
+///////////////////////////////////////////////////
+//// to fix problem with vtkRenderinContextOpenGL2
+//// which is needed for the XY plot
+#include <vtkAutoInit.h>
+VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
+VTK_MODULE_INIT(vtkRenderingOpenGL2)
+VTK_MODULE_INIT(vtkInteractionStyle)
+///////////////////////////////////////////////////
 #include "vtkSmartPointer.h"
 #include "vtkFloatArray.h"
 #include "vtkMath.h"
@@ -86,28 +93,27 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	ui.setupUi(this);
 	std::srand(std::time(0));
 	std::ostringstream os;
-	os<<"Spherical harmonics tissue mechanics modeling of morphogenesis (high resolution version)"<<std::endl<<"Created by Khaled Khairy and Philipp Keller."<<std::endl;
-	os<<"Copyright 2013 Howard Hughes Medical Institute"<<std::endl<<"-------------------------------------------------------------"<<std::endl<<std::endl;
-	report(os.str());os.str("");
+
     
 	this->version = 2000;
 	this->Lmax = 36;	//36
-	this->max_gL_max = 70; //70
+	this->max_gL_max = 36; //70
 	this->gdim = 60;		//60
 	this->gdim_fit_min = 30;//60
 	int calc_tri_n = 3; //3
 	int vis_tri_n = 5;	//5
-	tri_n_intersection_test = 1;
+	tri_n_intersection_test = 3;
 	
 	
 	//omp
-	//omp_set_num_threads(2);
-	Eigen::setNbThreads(2);
+	//omp_set_num_threads(4);
+	//Eigen::setNbThreads(4);
 
-	//progress.setValue(10);
-	//progress.setLabelText("Initializing the shell object: 1 of 3 (please wait)....                     ");QApplication::processEvents();
-    
-    os<<"Initializing the shell object: 1 of 3 (please wait)...."<<std::endl;report(os.str());os.str("");
+    sleep(1);
+	progress.setValue(10);
+	progress.setLabelText("Initializing the shell object: 1 of 3 (please wait)....                     ");QApplication::processEvents();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+    //os<<"Initializing shell object: 1 of 3 (please wait)...."<<std::endl;report(os.str());os.str("");
     
 	/// initialize the shell object
 	this->s = new shp_shell(Lmax,gdim,calc_tri_n, max_gL_max);
@@ -115,25 +121,37 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	this->s->srf_m->update();
 	this->s->srf_m->update_tri();
 	
+    sleep(1);
 	progress.setValue(20);
 	progress.setLabelText("Initializing the shell object: 2 of 3 (please wait)....                     ");QApplication::processEvents();
-
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+    //os<<"Initializing shell object: 2 of 3 (please wait)...."<<std::endl;report(os.str());os.str("");
 	this->s->srf_u->update();
 	this->s->srf_u->update_tri();
 
+    sleep(1);
 	progress.setValue(30);
 	progress.setLabelText("Initializing the shell object: 3 of 3 (please wait)....                     ");QApplication::processEvents();
-	this->s->srf_g->update();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+	//os<<"Initializing shell object: 3 of 3 (please wait)...."<<std::endl;report(os.str());os.str("");
+    this->s->srf_g->update();
 	this->s->srf_g->update_tri();
 
+    sleep(1);
 	progress.setValue(40);
 	progress.setLabelText("Initializing the surface visualization components: 1 of 2 (please wait) ....");QApplication::processEvents();
-	/// initialize the visualization mesh objects
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+	//os<<"Initializing surface visualization components: 1 of 2 (please wait) ...."<<std::endl;report(os.str());os.str("");
+    
+    /// initialize the visualization mesh objects
 	smv = new spherical_mesh(this->s->srf_m->b->L_max, vis_tri_n);
-	progress.setValue(80);
-	progress.setLabelText("Initializing the surface visualization components: 2 of 2 (please wait) ....");QApplication::processEvents();
-
-	gsmv= new spherical_mesh(this->s->get_gL_max(), vis_tri_n);
+	
+    sleep(1);
+    progress.setValue(80);
+	progress.setLabelText("Initializing the surface visualization components: 2 of 2 (please wait) ....");
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+    //os<<"Initializing surface visualization components: 2 of 2 (please wait) ...."<<std::endl;report(os.str());os.str("");
+    gsmv= new spherical_mesh(this->s->get_gL_max(), vis_tri_n);
 	s->sf1_vis.resize(gsmv->n_points);
 	s->sf2_vis.resize(gsmv->n_points);
 	s->sf3_vis.resize(gsmv->n_points);
@@ -141,9 +159,12 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	s->sf2_2_vis.resize(gsmv->n_points);
 	s->sf3_2_vis.resize(gsmv->n_points);
 
+    sleep(1);
 	progress.setValue(90);
-	//progress.setLabelText("Initializing the optimization components....                                 ");QApplication::processEvents();
-	//initialize optimization
+	progress.setLabelText("Initializing optimization components....                                 ");QApplication::processEvents();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+	//os<<"Initializing optimization components...."<<std::endl;report(os.str());os.str("");
+    //initialize optimization
 	int nc = this->s->srf_m->xc.rows();
 	ixc.resize(nc);std::fill(ixc.begin(), ixc.end(), true);
 	iyc.resize(nc);std::fill(iyc.begin(), iyc.end(), true);
@@ -169,8 +190,10 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	stop_optimization = false;
 	vm_actor_on = false;
 
-	progress.setValue(95);
-	//progress.setLabelText("Configuring visualization environment....                                    ");QApplication::processEvents();
+    sleep(1);
+	progress.setValue(92);
+	progress.setLabelText("Configuring visualization environment....                                    ");QApplication::processEvents();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
 	// setting up the look up table
 	vtkLookupTable *lut= vtkLookupTable::New();
 		lut->SetNumberOfTableValues(256);
@@ -241,9 +264,10 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	scalarBar->SetLabelTextProperty(tprop);
 	//_ren1->AddActor(scalarBar);
 
-	progress.setValue(99);
+    sleep(1);
+	progress.setValue(95);
 	progress.setLabelText("Inializing fast processing capability....                                    ");
-    QApplication::processEvents();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
 	//// prepare vtk for fast plotting during optimization by predefining the polygon structure stored in this->smv
 	vis_polys = vtkCellArray::New();
 	for (int i=0; i<this->smv->n_faces; i++)
@@ -261,13 +285,17 @@ SimGast::SimGast(QWidget *parent, QFlag flags)
 	/////
 	progress.setValue(100);
 	progress.setLabelText("Launching application!                                                       ");
-    QApplication::processEvents();
-	this->update_vtk();
+    progress.show(); progress.raise();progress.activateWindow();QApplication::processEvents();
+    sleep(1);
+    this->update_vtk();
+    
 	/////
 	//os<<*s;
 	//os<<"Number of available threads: "<<Eigen::nbThreads()<<std::endl;//omp_get_num_threads()
-	
-	report(os.str());
+    
+    os<<"Spherical harmonics tissue mechanics modeling of morphogenesis (high resolution version)"<<std::endl<<"Created by Khaled Khairy and Philipp Keller."<<std::endl;
+    os<<"Copyright 2017 Howard Hughes Medical Institute"<<std::endl<<"-------------------------------------------------------------"<<std::endl<<std::endl;
+    report(os.str());os.str("");
 }
 
 SimGast::~SimGast()
@@ -1275,7 +1303,7 @@ void SimGast::on_actionExport_obj_triggered()
 void SimGast::on_pushButton_load_undeformed_clicked()
 {
 	// load the shape
-	QString filename = QFileDialog::getOpenFileName(ui.vtkWidget1, "Open shape file ...",  "*.shp3");
+	QString filename = QFileDialog::getOpenFileName(ui.vtkWidget1, "Open undeformed shape file ...",  "*.shp3");
 	this->filestr = (const char*) filename.toLatin1();//filename.toStdString();
 	if(!(filestr.length()==0)){	this->import_shape_from_disc(filestr);}
 	ui.checkBox_symmetry->setChecked(0);
@@ -2406,6 +2434,8 @@ int SimGast::vtk_intersection_tests()
 {
 	int intersection = 0;
 	int coplanar;
+    double surfaceid[2];
+    double tolerance = 0.00001;
     double isectpt1[3], isectpt2[3];
 	double* V0;
 	double* V1;
@@ -2426,7 +2456,7 @@ int SimGast::vtk_intersection_tests()
 				U0 = (&s->Xvm[int(s->srf_m->sm->f0[j]-1)][0]);
 				U1 = (&s->Xvm[int(s->srf_m->sm->f1[j]-1)][0]);
 				U2 = (&s->Xvm[int(s->srf_m->sm->f2[j]-1)][0]);
-				intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2);
+				//intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2, surfaceid, tolerance);
 				if(intersection){return 1;}
 			}
 		}
@@ -2447,7 +2477,7 @@ int SimGast::vtk_intersection_tests()
 					U2 = (&s->Xin[int(s->srf_m->sm->f2[j]-1)][0]);
 					if(!share_vert((s->srf_m->sm->f0[i]-1),(s->srf_m->sm->f1[i]-1),(s->srf_m->sm->f2[i]-1),(s->srf_m->sm->f0[j]-1),(s->srf_m->sm->f1[j]-1),(s->srf_m->sm->f2[j]-1)))
 					{	
-						intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2);
+						//intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2, surfaceid, tolerance);
 					}
 					if(intersection){return 1;}
 				}
@@ -2470,7 +2500,7 @@ int SimGast::vtk_intersection_tests()
 					U2 = (&s->Xout[int(s->srf_m->sm->f2[j]-1)][0]);
 					if(!share_vert((s->srf_m->sm->f0[i]-1),(s->srf_m->sm->f1[i]-1),(s->srf_m->sm->f2[i]-1),(s->srf_m->sm->f0[j]-1),(s->srf_m->sm->f1[j]-1),(s->srf_m->sm->f2[j]-1)))
 					{	
-						intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2);
+						//intersection = vtkIntersectionPolyDataFilter::TriangleTriangleIntersection(V0,V1,V2,U0,U1,U2, coplanar,isectpt1,isectpt2, surfaceid, tolerance);
 					}
 					if(intersection){return 1;}
 				}

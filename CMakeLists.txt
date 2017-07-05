@@ -1,17 +1,16 @@
 project(SPHARM_Mech)
-
+set(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
 cmake_minimum_required(VERSION 2.8)
-
+set(CMAKE_PREFIX_PATH /Users/khairyk/Qt5.6/5.6/clang_64/lib/cmake)
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
 endif()
 
-find_package(VTK COMPONENTS
+find_package(VTK REQUIRED
   vtkCommonCore
   vtkFiltersCore
   vtkInfovisCore
   vtkInteractionStyle
-  vtkRenderingFreeTypeOpenGL
   vtkViewsQt
 )
 include(${VTK_USE_FILE})
@@ -58,5 +57,5 @@ set(CMAKE_AUTOMOC ON)
   add_executable(spharm_mech MACOSX_BUNDLE
     ${Srcs} ${Hdrs} ${UI_Srcs} ${MOC_Hdrs} ${QRC_Srcs})
   qt5_use_modules(spharm_mech Core Gui Widgets)
-  target_link_libraries(spharm_mech ${VTK_LIBRARIES} /Users/khairyk/VPCZ1_kk_share/c_code/buildnlopt/lib/libnlopt.a)
+  target_link_libraries(spharm_mech vtkViewsQt vtkChartsCore vtkViewsContext2D vtkIOPLY vtkIOGeometry vtkIOExport ${VTK_LIBRARIES} /Users/khairyk/VPCZ1_kk_share/c_code/buildnlopt/lib/libnlopt.a)
 

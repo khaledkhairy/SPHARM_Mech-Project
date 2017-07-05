@@ -464,7 +464,7 @@ separation</string>
          </widget>
          <widget class="QLineEdit" name="lineEdit_Lmax">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="geometry">
            <rect>
@@ -475,7 +475,7 @@ separation</string>
            </rect>
           </property>
           <property name="toolTip">
-           <string>L max for the scalar field representation</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;L max for shape representation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>36</string>
@@ -520,6 +520,9 @@ separation</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="checkBox_symmetry">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>340</x>
@@ -833,10 +836,15 @@ separation</string>
             <property name="geometry">
              <rect>
               <x>32</x>
-              <y>20</y>
+              <y>30</y>
               <width>101</width>
               <height>31</height>
              </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
             </property>
            </widget>
            <widget class="QLabel" name="label_2">
@@ -869,10 +877,15 @@ separation</string>
             <property name="geometry">
              <rect>
               <x>32</x>
-              <y>51</y>
+              <y>60</y>
               <width>101</width>
               <height>31</height>
              </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
             </property>
            </widget>
            <widget class="QLabel" name="label_4">
@@ -927,10 +940,15 @@ separation</string>
             <property name="geometry">
              <rect>
               <x>32</x>
-              <y>81</y>
+              <y>90</y>
               <width>101</width>
               <height>31</height>
              </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
             </property>
            </widget>
            <widget class="QCheckBox" name="checkBox_fold1active">
@@ -1029,7 +1047,7 @@ target curvature</string>
              </rect>
             </property>
             <property name="text">
-             <string>20</string>
+             <string>10</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1319,7 +1337,7 @@ target curvature</string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_5">
           <attribute name="title">
@@ -1637,7 +1655,7 @@ target curvature</string>
             </rect>
            </property>
            <property name="text">
-            <string>1e-1</string>
+            <string>1e-2</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1660,6 +1678,9 @@ target curvature</string>
            </property>
           </widget>
           <widget class="QLineEdit" name="lineEdit_SBPLX_Lmax_fit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>80</x>
@@ -1669,7 +1690,7 @@ target curvature</string>
             </rect>
            </property>
            <property name="text">
-            <string>36</string>
+            <string>16</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
