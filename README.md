@@ -1,5 +1,6 @@
 # SPHARM_Mech-Project
 Spherical harmonics-assisted modeling of tissue mechanics.
+![Alt text](https://github.com/khaledkhairy/SPHARM_Mech-Project/blob/master/clips/Screen%20Shot%202017-07-06%20at%209.25.56%20AM.png "SPHARM-MECH screenshot")
 
 -----------------------------------------------------------------------------
 Copyright (c) 2017, HHMI-Janelia Research Campus All rights reserved.
