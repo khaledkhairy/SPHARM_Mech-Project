@@ -42,5 +42,21 @@ To compile SPHARM-MECH please use cmake.
 
 Modify lines 3, 21, 22 and 59 in CMakeLists.txt.
 
-SPHARM-MECH was linked against QT version 5.7 and vtk version 7.1.1
-and compiled on macosx sierra using XCode.
+----------------------------------------------------------------------------------
+For MacOSX Sierra, it is easier to just use the supplied binary
+----------------------------------------------------------------------------------
+SPHARM-MECH was compiled using Qt 5.7 and VTK 7.1.1 (although other versions might also work)
+
+Building notes:
+
+The application has been built using the following C/C++ libraries on both MacOSX and Windows 7:
+
+[1] Eigen 3.1.1: http://eigen.tuxfamily.org
+
+[2] VTK 7.1.1: http://www.vtk.org/
+
+[3] Qt 5.7: http://www.qt.io/
+
+[4] shape tools: https://github.com/khaledkhairy/shape_tools
+
+Building has not been tested extensively on any other configuration but should be straightforward.
