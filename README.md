@@ -65,8 +65,8 @@ Flow field visualization has not been implemented in SPHARM-MECH itself yet.
 After generating a minimum energy shape, to view the tissue flow field please download the Matlab folder, ensure that it is in your Matlab path and in Matlab execute commands:
 
 ```json
-fn1 = '/Users/khairyk/VPCZ1_kk_share/mwork/kktoolbox_local/tissue_mechanics_kktoolbox/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3';
-fn2 = '/Users/khairyk/VPCZ1_kk_share/mwork/kktoolbox_local/tissue_mechanics_kktoolbox/vfi_result.shp3';
+fn1 = '<path to file>/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3';
+fn2 = '<path to file>/vfi_result.shp3';
 
 s1 = shp_surface;
 s1 = s1.read_shp_surface_ascii(fn1);
