@@ -29,7 +29,8 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-------------------------------------------------------------------------------
+
+
 
 ## Status: 
 In production use at Janelia. This is a nascent set of tools that is undergoing large changes and code cleanup. We consider the library suitable for use by our collaborators as well as other research groups. Due to limited staffing, we do not guarantee support for outside groups.
@@ -38,16 +39,16 @@ In production use at Janelia. This is a nascent set of tools that is undergoing 
 
 SPHARM-MECH is an application aimed at exposing functionality in the general shape_tools library, and making it easier for the user to try different configurations and parameters. SPHARM-MECH is taylored towards the specific problem of modeling tissue mechanics in biological systems. This application is a "sandbox" and not all features have proven useful for modeling tissue mechanics.
 
+Building notes:
+------------------------------------------------------------------------------
 To compile SPHARM-MECH please use cmake.
 
 Modify lines 3, 21, 22 and 59 in CMakeLists.txt.
 
-----------------------------------------------------------------------------------
 For MacOSX Sierra, it is easier to just use the supplied binary
-----------------------------------------------------------------------------------
+
 SPHARM-MECH was compiled using Qt 5.7 and VTK 7.1.1 (although other versions might also work)
 
-Building notes:
 
 The application has been built using the following C/C++ libraries on both MacOSX and Windows 7:
 
@@ -60,9 +61,9 @@ The application has been built using the following C/C++ libraries on both MacOS
 [4] shape tools: https://github.com/khaledkhairy/shape_tools
 
 Building has not been tested extensively on any other configuration but should be straightforward.
-----------------------------------------------------
-Basic modeling example steps:
 
+Basic modeling example steps:
+----------------------------------------------------
 1- Launch the application
 2- Click on "Load undeformed surface" OR drag a surface (shp3) file onto the application window. The example fly embryo provided, with gene expression patterns is <path to repo>/MACOSXBinary/test/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3. The shape loads and shows up in the upper left window. You can rotate and zoom in/out with the mouse. You can also click on "curvature" to see the shape colored according to local mean curvature.
 3- Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run).
@@ -72,7 +73,9 @@ Basic modeling example steps:
 7- Export/save the shape from the "File" menu as the common obj format for viewing/importing into other applications or shp3 format which can be used with SHAPE, SPHARM-MECH or the Matlab tools accompanying this work.
 
 
-Flow field visualization has not been implemented in SPHARM-MECH itself yet.
+Flow field visualization 
+------------------------------------------------------------------------------
+It has not been implemented in SPHARM-MECH itself yet.
 After generating a minimum energy shape, to view the tissue flow field please download the Matlab folder, ensure that it is in your Matlab path and in Matlab execute commands:
 
 ```json
