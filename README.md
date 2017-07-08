@@ -60,6 +60,17 @@ The application has been built using the following C/C++ libraries on both MacOS
 [4] shape tools: https://github.com/khaledkhairy/shape_tools
 
 Building has not been tested extensively on any other configuration but should be straightforward.
+----------------------------------------------------
+Basic modeling example steps:
+
+1- Launch the application
+2- Click on "Load undeformed surface" OR drag a surface (shp3) file onto the application window. The example fly embryo provided, with gene expression patterns is <path to repo>/MACOSXBinary/test/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3. The shape loads and shows up in the upper left window. You can rotate and zoom in/out with the mouse. You can also click on "curvature" to see the shape colored according to local mean curvature.
+3- Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run).
+4- In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 50,000 and press "start" to start the optimization.
+5- The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <bending energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>
+6- At the end of optimization, or when the user presses "stop" the current lowest energy shape will be shown.
+7- Export/save the shape from the "File" menu as the common obj format for viewing/importing into other applications or shp3 format which can be used with SHAPE, SPHARM-MECH or the Matlab tools accompanying this work.
+
 
 Flow field visualization has not been implemented in SPHARM-MECH itself yet.
 After generating a minimum energy shape, to view the tissue flow field please download the Matlab folder, ensure that it is in your Matlab path and in Matlab execute commands:
