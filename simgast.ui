@@ -169,6 +169,9 @@
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_section">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>242</x>
@@ -416,7 +419,7 @@ separation</string>
          </widget>
          <widget class="QPushButton" name="pushButton_load_starting">
           <property name="enabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="geometry">
            <rect>
@@ -1690,7 +1693,7 @@ target curvature</string>
             </rect>
            </property>
            <property name="text">
-            <string>16</string>
+            <string>24</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

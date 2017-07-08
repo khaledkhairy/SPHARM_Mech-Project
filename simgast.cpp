@@ -2862,7 +2862,7 @@ void SimGast::pso_start()
 			if(coord==2){this->s->srf_m->yc(cix,0) = old_val;}
 			if(coord==3){this->s->srf_m->zc(cix,0) = old_val;}
 		}
-		np++;	// increment the particle index counter
+		np++;	// increment particle index counter
 	}
 	stop_optimization=false;
 	///// the actual PSO iterations start here

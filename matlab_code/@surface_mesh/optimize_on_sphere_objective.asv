@@ -1,0 +1,26 @@
+function res = optimize_on_sphere_objective(Xo, F, Areas_o_bar)
+% the objective function that returns the sum of squared residuals of
+% differences in relative area between the triangles on the original object
+% and the spherical ones on the unit sphere
+
+nvert = length(Xo)/2;
+t = Xo(1:nvert);
+p = Xo(nvert+1:end);
+[u, v, w] = kk_sph2cart(t,p,1);
+%% Calculate the Euler (geodesic) area of the spherical triangles
+%%% Area of spherical triangle = R^2*(A+B+C-pi);
+%%% where A, B and C are the angles in radians
+x1 = u(F(:,1)); y1 = v(F(:,1));z1 =  w(F(:,1));
+x2 = u(F(:,2)); y2 = v(F(:,2));z2 =  w(F(:,2));
+x3 = u(F(:,3)); y3 = v(F(:,3));z3 =  w(F(:,3));%%% generate the three vertices (coordinates) of the triangles in same order as F
+V1 = [x1(:) y1(:) z1(:)];   % list of coordinates for first vertices of all triangles F
+V2 = [x2(:) y2(:) z2(:)];
+V3 = [x3(:) y3(:) z3(:)];
+nV1 = norm_list(V1);
+nV2 = norm_list(V2);
+nV3 = norm_list(V3);
+A = acos(dot(V1,V3,2)./nV1./nV3;  % angle between V1 and V3 (for all faces)
+B = acos(dot(V1,V2,2)./nV1./nV2;  % angle between V1 and V2 (for all faces)
+C = acos(dot(V2,V3,2)./nV2./nV3;  % angle between V2 and V3 (for all faces)
+Areas = A+B+C-pi;
+Areas_bar = Areas/sum(Areas);
