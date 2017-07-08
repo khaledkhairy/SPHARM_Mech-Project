@@ -54,11 +54,15 @@ The application has been built using the following C/C++ libraries on both MacOS
 
 [1] Eigen 3.1.1: http://eigen.tuxfamily.org
 
+
 [2] VTK 7.1.1: http://www.vtk.org/
+
 
 [3] Qt 5.7: http://www.qt.io/
 
+
 [4] shape tools: https://github.com/khaledkhairy/shape_tools
+
 
 Building has not been tested extensively on any other configuration but should be straightforward.
 
