@@ -73,7 +73,7 @@ Basic modeling example steps:
 
 [4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 50,000 and press "start" to start the optimization.
 
-[5] The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <bending energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>
+[5] The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <total shape energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>
 
 [6] At the end of optimization, or when the user presses "stop" the current lowest energy shape will be shown.
 
