@@ -71,9 +71,9 @@ Basic modeling example steps:
 
 [3] Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run).
 
-[4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 50,000 and press "start" to start the optimization.
+[4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 200,000 and press "start" to start the optimization.
 
-[5] The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <total shape energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>
+[5] The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <total shape energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>. Quirk:Should the shape disappear during optimization, please click anywhere into the upper left window and press <R>.
 
 [6] At the end of optimization, or when the user presses "stop" the current lowest energy shape will be shown.
 
@@ -82,8 +82,8 @@ Basic modeling example steps:
 
 Flow field visualization 
 ------------------------------------------------------------------------------
-It has not been implemented in SPHARM-MECH itself yet.
-After generating a minimum energy shape, to view the tissue flow field please download the Matlab folder, ensure that it is in your Matlab path and in Matlab execute commands:
+It has not been implemented in the SPHARM-MECH GUI itself yet. 
+If you have Matlab available, after generating a minimum energy shape, to view the tissue flow field please ensure that the "matlab_code" folder is in your path and in Matlab execute commands:
 
 ```json
 fn1 = '<path to file>/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3';
