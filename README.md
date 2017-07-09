@@ -69,7 +69,8 @@ Basic modeling example steps:
 
 [2] Click on "Load undeformed surface" OR drag a surface (shp3) file onto the application window. The example fly embryo provided, with gene expression patterns is <path to repo>/MACOSXBinary/test/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3. The shape loads and shows up in the upper left window. You can rotate and zoom in/out with the mouse. You can also click on "curvature" to see the shape colored according to local mean curvature.
 
-[3] Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run).
+[3] Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run). The configuration panel should look similar to this:
+![Alt text](https://github.com/khaledkhairy/SPHARM_Mech-Project/blob/master/clips/example_configuration.jpg "example configuration")
 
 [4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 200,000 and press "start" to start the optimization.
 
