@@ -4,7 +4,7 @@ function plot_difference(m1,m2)
 [A2, V2, v2, F_areas2, h2, H2, wb2, da2, N2, K2, k_g2, dA2, n2] = ...
     triangulated_props(m2.X, m2.F, 0);
 
-s = -1;
+s = 1;
 V = [s*(m1.X(:,1)-m2.X(:,1)) s*(m1.X(:,2)-m2.X(:,2)) s*( m1.X(:,3)-m2.X(:,3))];
 dotVN = dot(V,N1,2);
 dotVN = dotVN(:,ones(1,size(N1,2)));

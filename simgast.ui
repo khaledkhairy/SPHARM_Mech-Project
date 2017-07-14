@@ -325,6 +325,9 @@ separation</string>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_constraint_surface">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>242</x>
@@ -1693,7 +1696,7 @@ target curvature</string>
             </rect>
            </property>
            <property name="text">
-            <string>24</string>
+            <string>32</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
