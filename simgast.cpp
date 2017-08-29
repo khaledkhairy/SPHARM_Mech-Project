@@ -24,8 +24,12 @@
 //// to fix problem with vtkRenderinContextOpenGL2
 //// which is needed for the XY plot
 #include <vtkAutoInit.h>
-VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
-VTK_MODULE_INIT(vtkRenderingOpenGL2)
+//VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
+//VTK_MODULE_INIT(vtkRenderingOpenGL2)
+//VTK_MODULE_INIT(vtkInteractionStyle)
+//
+VTK_MODULE_INIT(vtkRenderingContextOpenGL);
+VTK_MODULE_INIT(vtkRenderingOpenGL)
 VTK_MODULE_INIT(vtkInteractionStyle)
 ///////////////////////////////////////////////////
 #include "vtkSmartPointer.h"
