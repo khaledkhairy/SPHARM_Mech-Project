@@ -80,6 +80,8 @@ Basic modeling example steps:
 
 ![Alt text](https://github.com/khaledkhairy/SPHARM_Mech-Project/blob/master/clips/Screen_after_3h.png "SPHARM-MECH screenshot")
 
+The result above is saved in: <path to repo>/MACOSXBinary/test/Result_after_3_h_Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3
+
 [7] Export/save the shape from the "File" menu as the common obj format for viewing/importing into other applications or shp3 format which can be used with SHAPE, SPHARM-MECH or the Matlab tools accompanying this work.
 
 
