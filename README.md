@@ -72,11 +72,13 @@ Basic modeling example steps:
 [3] Select the gene expression scalar field dorsal_s from the drop-down menu under "Fold 1" and then enter 1.0 in the edit field next to set that the dorsal_s expression will be used 100% (there are no other scalar fields for this run). The configuration panel should look similar to this:
 ![Alt text](https://github.com/khaledkhairy/SPHARM_Mech-Project/blob/master/clips/example_configuration.jpg "example configuration")
 
-[4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 200,000 and press "start" to start the optimization.
+[4] In the optimization panel make sure the SUBPLEX(NLOPT) tab is selected, set the number of iterations to 500,000 and press "start" to start the optimization.
 
 [5] The shape updates during optimization and current energy is plotted in the lower left panel. The text feedback provides information about <total shape energy> <volume constraint energy> <self-intersection (should be 0)> <self-check of curvature calculation using total Gaussian curvature (should be close to 1.0 throughout)>. Quirk:Should the shape disappear during optimization, please click anywhere into the upper left window and press R.
 
-[6] At the end of optimization, or when the user presses "stop" the current lowest energy shape will be shown.
+[6] At the end of optimization, or when the user presses "stop" the current lowest energy shape will be shown. Here is an example when stopping processing after 3 hours of step [4].
+
+![Alt text](https://github.com/khaledkhairy/SPHARM_Mech-Project/blob/master/clips/Screen_after_3h.png "SPHARM-MECH screenshot")
 
 [7] Export/save the shape from the "File" menu as the common obj format for viewing/importing into other applications or shp3 format which can be used with SHAPE, SPHARM-MECH or the Matlab tools accompanying this work.
 
