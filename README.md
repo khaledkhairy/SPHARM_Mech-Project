@@ -65,6 +65,7 @@ Building has not been tested extensively on any other configuration but should b
 
 Basic modeling example steps:
 ----------------------------------------------------
+(Note before you start: At step [5] you will running an optimization that can take some time. During this optimzation, it is possible that the shape disappears from the display window. Press <R> in this case to re-center the shape.)
 [1] Launch the application.
 
 [2] Click on "Load undeformed surface" OR drag a surface (shp3) file onto the application window. The example fly embryo provided, with gene expression patterns is <path to repo>/MACOSXBinary/test/Fly_embryo_Berkeley_stage5_last_Lmax80_with_dorsal_L56.shp3. The shape loads and shows up in the upper left window. You can rotate and zoom in/out with the mouse. You can also click on "curvature" to see the shape colored according to local mean curvature.
