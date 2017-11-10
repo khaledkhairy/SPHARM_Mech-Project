@@ -85,6 +85,7 @@ The result above is saved in: <path to repo>/MACOSXBinary/test/Result_after_3_h_
 
 [7] Export/save the shape from the "File" menu as the common obj format for viewing/importing into other applications or shp3 format which can be used with SHAPE, SPHARM-MECH or the Matlab tools accompanying this work.
 
+If a morphogen gradient-based analysis is desired, please follow the simple instructions in the ![Alt text](https://github.com/khaledkhairy/shape_tools "shape_tools") repository for modification of the shell class. 
 
 Flow field visualization 
 ------------------------------------------------------------------------------
